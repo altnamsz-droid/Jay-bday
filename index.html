@@ -1,0 +1,965 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"><title>For Jay 🤍</title><link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=DM+Mono:wght@300;400&family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet"><style>
+
+:root {
+    --navy: #1C2B48;
+    --cream: #FFFFE4;
+    --line: rgba(255,255,228,0.16);
+    --soft-navy: rgba(28,43,72,0.08);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: var(--navy);
+    color: var(--cream);
+    font-family: "Cormorant Garamond", serif;
+    overflow-x: hidden;
+}
+
+/* =========================
+   SUBTLE GRAIN
+========================= */
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 999;
+    opacity: .035;
+    background-image:
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.7'/%3E%3C/svg%3E");
+}
+
+/* =========================
+   INTRO
+========================= */
+
+#intro {
+    position: fixed;
+    inset: 0;
+    background: var(--cream);
+    color: var(--navy);
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 25px;
+    transition: opacity 1s ease, visibility 1s ease;
+}
+
+#intro.hide {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.intro-inner {
+    width: min(600px, 100%);
+}
+
+.intro-small {
+    font-family: "DM Mono", monospace;
+    font-size: 9px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    opacity: .48;
+}
+
+.intro-text {
+    font-family: "Playfair Display", serif;
+    font-size: clamp(50px, 13vw, 90px);
+    line-height: 1.02;
+    margin: 25px 0 45px;
+    letter-spacing: -3px;
+}
+
+.enter-btn {
+    position: relative;
+    overflow: hidden;
+    background: var(--navy);
+    color: var(--cream);
+    border: none;
+    padding: 16px 35px;
+    min-width: 150px;
+    border-radius: 100px;
+    font-family: "DM Mono", monospace;
+    font-size: 9px;
+    letter-spacing: 3px;
+    cursor: pointer;
+    transition: transform .3s ease, box-shadow .3s ease;
+}
+
+.enter-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(28,43,72,.18);
+}
+
+.enter-btn:active {
+    transform: scale(.97);
+}
+
+/* =========================
+   PASSWORD
+========================= */
+
+#lockScreen {
+    position: fixed;
+    inset: 0;
+    background: var(--navy);
+    z-index: 90;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 25px;
+}
+
+.lock-box {
+    width: min(420px, 100%);
+    text-align: center;
+}
+
+.lock-icon {
+    width: 62px;
+    height: 62px;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    margin: 0 auto 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 21px;
+    position: relative;
+}
+
+.lock-icon::after {
+    content: "";
+    position: absolute;
+    inset: 7px;
+    border: 1px solid rgba(255,255,228,.06);
+    border-radius: 50%;
+}
+
+.lock-title {
+    font-family: "Playfair Display", serif;
+    font-size: clamp(32px, 8vw, 38px);
+    margin-bottom: 10px;
+}
+
+.lock-subtitle {
+    font-size: 16px;
+    opacity: .52;
+    margin-bottom: 32px;
+}
+
+#password {
+    width: 100%;
+    padding: 18px 20px;
+    background: rgba(255,255,228,.025);
+    border: 1px solid var(--line);
+    color: var(--cream);
+    border-radius: 7px;
+    outline: none;
+    text-align: center;
+    font-family: "DM Mono", monospace;
+    font-size: 13px;
+    letter-spacing: 4px;
+    transition: .3s;
+}
+
+#password:focus {
+    border-color: rgba(255,255,228,.55);
+    background: rgba(255,255,228,.045);
+}
+
+.unlock-btn {
+    width: 100%;
+    margin-top: 14px;
+    padding: 17px;
+    border: none;
+    border-radius: 7px;
+    background: var(--cream);
+    color: var(--navy);
+    font-family: "DM Mono", monospace;
+    font-size: 10px;
+    letter-spacing: 3px;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.unlock-btn:active {
+    transform: scale(.98);
+}
+
+.hint {
+    margin-top: 25px;
+    font-size: 14px;
+    font-style: italic;
+    opacity: .42;
+}
+
+#error {
+    min-height: 15px;
+    margin-top: 14px;
+    color: #e6caca;
+    font-family: "DM Mono", monospace;
+    font-size: 9px;
+    letter-spacing: 1px;
+}
+
+/* =========================
+   MAIN
+========================= */
+
+#main {
+    display: none;
+}
+
+section {
+    min-height: 100svh;
+    padding: 90px 25px;
+}
+
+/* =========================
+   SECTION NUMBER
+========================= */
+
+.section-number {
+    position: absolute;
+    top: 28px;
+    left: 25px;
+    font-family: "DM Mono", monospace;
+    font-size: 8px;
+    letter-spacing: 2px;
+    opacity: .25;
+}
+
+/* =========================
+   SONG
+========================= */
+
+.song-section {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: var(--navy);
+}
+
+.song-box {
+    width: min(650px, 100%);
+}
+
+.song-symbol {
+    font-size: 39px;
+    margin-bottom: 25px;
+    opacity: .72;
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%,100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-5px);
+    }
+}
+
+.eyebrow {
+    font-family: "DM Mono", monospace;
+    font-size: 9px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    opacity: .42;
+}
+
+.song-box h1 {
+    font-family: "Playfair Display", serif;
+    font-size: clamp(46px, 12vw, 75px);
+    font-weight: 400;
+    line-height: 1.02;
+    margin: 24px 0;
+    letter-spacing: -2px;
+}
+
+.song-box p {
+    font-size: 18px;
+    line-height: 1.7;
+    opacity: .58;
+    margin-bottom: 25px;
+}
+
+.spotify-frame {
+    width: 100%;
+    max-width: 650px;
+    border-radius: 13px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,.16);
+}
+
+.spotify-frame iframe {
+    display: block;
+    width: 100%;
+    height: 352px;
+    border: 0;
+}
+
+.song-note {
+    margin-top: 20px;
+    font-size: 12px;
+    opacity: .28;
+}
+
+/* =========================
+   SCROLL CUE
+========================= */
+
+.scroll-cue {
+    position: absolute;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: "DM Mono", monospace;
+    font-size: 8px;
+    letter-spacing: 2px;
+    opacity: .3;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%,100% {
+        opacity: .2;
+    }
+
+    50% {
+        opacity: .55;
+    }
+}
+
+/* =========================
+   HERO
+========================= */
+
+.hero {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(255,255,228,.035),
+            transparent 55%
+        );
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 850px;
+}
+
+.hero h1 {
+    font-family: "Playfair Display", serif;
+    font-weight: 400;
+    font-size: clamp(60px, 15vw, 140px);
+    line-height: .88;
+    letter-spacing: -5px;
+    margin: 30px 0;
+}
+
+.hero-date {
+    font-size: 18px;
+    opacity: .5;
+}
+
+.circle {
+    position: absolute;
+    width: min(450px, 90vw);
+    height: min(450px, 90vw);
+    border: 1px solid rgba(255,255,228,.07);
+    border-radius: 50%;
+    animation: slowRotate 25s linear infinite;
+}
+
+.circle::after {
+    content: "";
+    position: absolute;
+    inset: 55px;
+    border: 1px solid rgba(255,255,228,.05);
+    border-radius: 50%;
+}
+
+@keyframes slowRotate {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* =========================
+   LETTER
+========================= */
+
+.letter-section {
+    position: relative;
+    background: var(--cream);
+    color: var(--navy);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.letter {
+    width: min(760px, 100%);
+}
+
+.letter .eyebrow {
+    opacity: .42;
+}
+
+.letter h2 {
+    font-family: "Playfair Display", serif;
+    font-size: clamp(43px, 10vw, 70px);
+    font-weight: 400;
+    line-height: 1.04;
+    margin: 24px 0 38px;
+    letter-spacing: -2px;
+}
+
+.letter p {
+    font-size: 20px;
+    line-height: 1.85;
+    margin-bottom: 24px;
+}
+
+.signature {
+    margin-top: 45px;
+    font-family: "Playfair Display", serif;
+    font-style: italic;
+    font-size: 22px;
+    opacity: .8;
+}
+
+/* =========================
+   ENDING
+========================= */
+
+.ending {
+    position: relative;
+    background: var(--cream);
+    color: var(--navy);
+    min-height: 100svh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.ending-content {
+    max-width: 850px;
+}
+
+.ending h2 {
+    font-family: "Playfair Display", serif;
+    font-weight: 400;
+    font-size: clamp(48px, 11vw, 90px);
+    line-height: 1.05;
+    margin: 28px 0;
+    letter-spacing: -2px;
+}
+
+.ending p {
+    font-size: 18px;
+    opacity: .55;
+}
+
+.ending-heart {
+    margin-top: 45px;
+    font-size: 23px;
+    opacity: .65;
+}
+
+/* =========================
+   FADE ANIMATION
+========================= */
+
+.fade {
+    opacity: 0;
+    transform: translateY(28px);
+    transition:
+        opacity 1.15s ease,
+        transform 1.15s cubic-bezier(.2,.7,.2,1);
+}
+
+.fade.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:600px) {
+
+    section {
+        padding: 70px 22px;
+        min-height: 100svh;
+    }
+
+    .intro-text {
+        margin: 22px 0 40px;
+    }
+
+    .lock-box {
+        padding: 0 4px;
+    }
+
+    .song-section {
+        padding-top: 65px;
+        padding-bottom: 75px;
+    }
+
+    .song-box h1 {
+        letter-spacing: -1.5px;
+        margin: 22px 0;
+    }
+
+    .song-box p {
+        font-size: 17px;
+        max-width: 330px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .spotify-frame iframe {
+        height: 152px;
+    }
+
+    .hero h1 {
+        letter-spacing: -3px;
+        margin: 25px 0;
+    }
+
+    .circle {
+        width: 310px;
+        height: 310px;
+    }
+
+    .circle::after {
+        inset: 40px;
+    }
+
+    .letter-section {
+        padding-top: 85px;
+        padding-bottom: 85px;
+    }
+
+    .letter h2 {
+        letter-spacing: -1.5px;
+        margin-bottom: 32px;
+    }
+
+    .letter p {
+        font-size: 18px;
+        line-height: 1.78;
+        margin-bottom: 22px;
+    }
+
+    .signature {
+        margin-top: 38px;
+    }
+
+    .ending {
+        padding: 70px 25px;
+    }
+
+    .ending h2 {
+        letter-spacing: -1.5px;
+    }
+}
+
+/* =========================
+   VERY SMALL PHONES
+========================= */
+
+@media(max-width:360px) {
+
+    .intro-text {
+        font-size: 45px;
+    }
+
+    .hero h1 {
+        font-size: 57px;
+    }
+
+    .letter p {
+        font-size: 17px;
+    }
+
+    .circle {
+        width: 275px;
+        height: 275px;
+    }
+}
+
+</style></head><body><!-- =========================
+     INTRO
+========================= --><div id="intro"><div class="intro-inner">
+
+    <div class="intro-small">
+        a little something for you
+    </div>
+
+    <div class="intro-text">
+        Chapter 20?
+    </div>
+
+    <button class="enter-btn" onclick="showLock()">
+        ENTER
+    </button>
+
+</div>
+
+</div><!-- =========================
+     PASSWORD
+========================= --><div id="lockScreen"><div class="lock-box">
+
+    <div class="lock-icon">
+        ♧
+    </div>
+
+    <div class="lock-title">
+        A little secret.
+    </div>
+
+    <div class="lock-subtitle">
+        There’s something waiting for you inside.
+    </div>
+
+    <input
+        type="password"
+        id="password"
+        placeholder="PASSWORD"
+        autocomplete="off"
+        onkeydown="if(event.key==='Enter') unlock()"
+    >
+
+    <button class="unlock-btn" onclick="unlock()">
+        UNLOCK
+    </button>
+
+    <div id="error"></div>
+
+    <div class="hint">
+        Hint — What comes after 66?
+    </div>
+
+</div>
+
+</div><!-- =========================
+     MAIN WEBSITE
+========================= --><div id="main"><!-- =========================
+     SONG
+========================= -->
+
+<section class="song-section">
+
+    <div class="section-number">
+        01 / 04
+    </div>
+
+    <div class="song-box fade">
+
+        <div class="song-symbol">
+            ♫
+        </div>
+
+        <div class="eyebrow">
+            before you continue
+        </div>
+
+        <h1>
+            A song for<br>
+            this moment.
+        </h1>
+
+        <p>
+            Press play below and let the song play before you continue.
+        </p>
+
+        <div class="spotify-frame">
+
+            <iframe
+                style="border-radius:12px;"
+                src="https://open.spotify.com/embed/track/3hB9lDLyAClYVZivMMl20N?utm_source=generator"
+                width="100%"
+                height="352"
+                frameborder="0"
+                allowfullscreen=""
+                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                loading="lazy">
+            </iframe>
+
+        </div>
+
+        <div class="song-note">
+            Scroll down once you've started it.
+        </div>
+
+    </div>
+
+    <div class="scroll-cue">
+        SCROLL ↓
+    </div>
+
+</section>
+
+
+<!-- =========================
+     BIRTHDAY REVEAL
+========================= -->
+
+<section class="hero">
+
+    <div class="section-number">
+        02 / 04
+    </div>
+
+    <div class="circle"></div>
+
+    <div class="hero-content fade">
+
+        <div class="eyebrow">
+            today is yours
+        </div>
+
+        <h1>
+            Happy<br>
+            Birthday,<br>
+            Jayyyy.
+        </h1>
+
+        <div class="hero-date">
+            🫶
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     LETTER
+========================= -->
+
+<section class="letter-section">
+
+    <div class="section-number">
+        03 / 04
+    </div>
+
+    <div class="letter fade">
+
+        <div class="eyebrow">
+            a little letter
+        </div>
+
+        <h2>
+            Happy Birthday Jayyyy!🫶
+        </h2>
+
+        <p>
+            Hope u always stay happy and life treats u well also
+            thoda sudhar bhi ja:p
+        </p>
+
+        <p>
+            Even if u dgaf abt me or hate me I'll always have a soft
+            corner for u.. u made me really happy during a really bad
+            phase of my life and even if it wasn't real at all, the
+            happiness it gave me was.. I'll always be grateful for that :))
+        </p>
+
+        <p>
+            I don't think u need my help or anything but if u ever need
+            me toh yk I'll always be around.. humesha khush reh and
+            HAPPY WALA BIRTHDAY ONCE AGAAAIIINNN🫶🏼🫶🏼
+        </p>
+
+        <div class="signature">
+            ~ From Addy
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     ENDING
+========================= -->
+
+<section class="ending">
+
+    <div class="section-number">
+        04 / 04
+    </div>
+
+    <div class="ending-content fade">
+
+        <div class="eyebrow">
+            one last thing
+        </div>
+
+        <h2>
+            No matter how things turned out,
+            I’ll always be glad I met you.
+        </h2>
+
+        <p>
+            Happy Birthday, Jay. 🤍
+        </p>
+
+        <div class="ending-heart">
+            ♡
+        </div>
+
+    </div>
+
+</section>
+
+</div><!-- =========================
+     JAVASCRIPT
+========================= --><script>
+
+/* =========================
+   INTRO → PASSWORD
+========================= */
+
+function showLock() {
+
+    const intro = document.getElementById("intro");
+
+    intro.classList.add("hide");
+
+    setTimeout(() => {
+
+        document.getElementById("lockScreen").style.display = "flex";
+
+    }, 900);
+}
+
+
+/* =========================
+   PASSWORD
+========================= */
+
+function unlock() {
+
+    const passwordInput =
+        document.getElementById("password").value;
+
+    const error =
+        document.getElementById("error");
+
+    if (
+        passwordInput.trim() === "67"
+    ) {
+
+        error.innerHTML = "";
+
+        const lock =
+            document.getElementById("lockScreen");
+
+        lock.style.transition =
+            "opacity 1s ease";
+
+        lock.style.opacity = "0";
+
+        setTimeout(() => {
+
+            lock.style.display = "none";
+
+            document.getElementById("main")
+                .style.display = "block";
+
+            window.scrollTo(0, 0);
+
+            document
+                .querySelector(".song-section .fade")
+                .classList.add("visible");
+
+        }, 1000);
+
+    } else {
+
+        error.innerHTML =
+            "That isn't the right password.";
+
+        document.getElementById("password").value = "";
+
+    }
+}
+
+
+/* =========================
+   SCROLL FADE
+========================= */
+
+const observer =
+    new IntersectionObserver(
+        entries => {
+
+            entries.forEach(entry => {
+
+                if (entry.isIntersecting) {
+
+                    entry.target
+                        .classList
+                        .add("visible");
+
+                }
+
+            });
+
+        },
+        {
+            threshold: 0.15
+        }
+    );
+
+
+document
+    .querySelectorAll(".fade")
+    .forEach(element => {
+
+        observer.observe(element);
+
+    });
+
+</script></body>
+</html>
